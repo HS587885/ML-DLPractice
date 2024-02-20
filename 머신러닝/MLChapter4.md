@@ -4,7 +4,7 @@
 
 ## Biological Motivation
 - 생물학점 학습 시스템이 상호 연결된 뉴런의 매우 복잡한 웹으로 구축되어 있다는 관찰에서 부분적으로 영감을 받음
-- 인공신겨망도 조밀하게 상호 연결된 단위 집합으로 구축됨
+- 인공신경망도 조밀하게 상호 연결된 단위 집합으로 구축됨
 - 각 단위는 다수의 실제 값 입력과 실제 값을 출력
 
 
@@ -120,6 +120,58 @@
 - 역전파가 직면한 학습 문제는 network의 모든 unit에 대해 가능한 모든 가중치 값으로 정의된 큰 가설 공간을 검색하는 것
 - 다층 네트워크의 경우에는 단일 최소 포물선 오류 표면과 달리 여러 개의 지역 최소값을 가질 수 있음
 
+역전파(학습 data, 학습율, 입력값의 수, 은닉층의 unit 수, 출력값의 수):
+
+    학습 data는 <input vector, target vector>의 형태를 뜀
+    
+    매개변수로 받은 입력값의 수와 은닉층의 unit 수 그리고 출력값의 수로 순전파 신경망 생성
+    
+    신경망의 모든 가중치를 -0.05~0.05 사이의 수로 무작위로 초기화
+    
+    종료 조건이 만족될 때까지 아래의 과정을 진행
+    
+        각각의 <input vector, tartget vector>에서 아래와 같은 과정을 진행
+        
+            신경망 계산
+            
+            1. input vector를 신경망에 입력하여 모든 u에 대해서 출력값(o_u) 계산
+            
+            역전파
+            
+            2.  각각의 출력값 k에 대해서 error term을 계산
+            
+            3. 각각의 은닉 단위 h에 대해서 error term 계산
+            
+            4. 가중치 update
+            
+            
+          
+
+#### 역전파 수식
+
+<img width="114" alt="캡처" src="https://user-images.githubusercontent.com/80622859/194011011-6700d7a2-05bd-4446-87af-c188d5be0236.PNG">
+
+- 연쇄 법칙을 따르면 위의 식이 성립
+- 우변에 첫번째 항은 아래와 같음
+
+<img width="168" alt="캡처" src="https://user-images.githubusercontent.com/80622859/194011205-51869616-e3e8-41cd-9c6c-e137dd33a6ac.PNG">
+
+- Sigmoid의 미분값을 활용하여 2번쨰 항을 계산 시 아래와 같음
+
+<img width="118" alt="캡처" src="https://user-images.githubusercontent.com/80622859/194011379-a3957940-c1c9-4236-9276-0ea77b378719.PNG">
+
+- 위의 두 식을 곱하면 아래와 같음
+
+<img width="168" alt="캡처" src="https://user-images.githubusercontent.com/80622859/194011448-7f82835d-1d5f-4702-83b9-5c1c9b1afef2.PNG">
+
+- 최종 update 해야할 값은 아래와 같음
+
+<img width="244" alt="캡처" src="https://user-images.githubusercontent.com/80622859/194011526-88868eb3-24d9-4230-aac0-1442cb6bda84.PNG">
+
+
+
+
+
 #### 역전파 1단계
 
 <img width="291" alt="캡처" src="https://user-images.githubusercontent.com/80622859/189910521-52862ed2-f002-4dfb-b741-4642f77c7c11.PNG">
@@ -130,7 +182,7 @@
 <img width="116" alt="캡처" src="https://user-images.githubusercontent.com/80622859/189909303-2ba6b96b-b92a-4a88-a786-c5c0344a4db0.PNG">
 
 - Weights we have to update : $w_5\,,w_6\,,w_7\,,w_8$(4개)
-- For updatin $w_5$, we must calculate $\frac{\partial E_{total}}{\partial w_5}$
+- For updat $w_5$, we must calculate $\frac{\partial E_{total}}{\partial w_5}$
 - 미분의 연쇄법칙
 
 <img width="175" alt="캡처" src="https://user-images.githubusercontent.com/80622859/189910203-2bc0d63f-94c2-414e-baaa-62e542071121.PNG">
